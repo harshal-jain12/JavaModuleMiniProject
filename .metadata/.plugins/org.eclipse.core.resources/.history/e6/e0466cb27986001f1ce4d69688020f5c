@@ -1,7 +1,0 @@
-package exceptions;
-//custom exception: DcoctorNotAvailableException
-class DoctorNotAvailableException extends Exception {
-    public DoctorNotAvailableException(String message) {
-        super(message);
-    }
-}

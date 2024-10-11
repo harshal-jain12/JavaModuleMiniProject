@@ -1,9 +1,0 @@
-package exceptionhandling;
-
-public class InsufficientSeatsException extends Exception {
-	
-	public IncompatibleClassChangeError(String message) {
-		super(message);
-
-}
-}
