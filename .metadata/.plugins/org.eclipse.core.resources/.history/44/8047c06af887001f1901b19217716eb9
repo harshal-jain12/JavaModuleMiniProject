@@ -1,0 +1,120 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import entity.Flight;
+import entity.Booking;
+import entity.Customer;
+
+public class TestMain {
+
+	public static void main(String[] args) {
+		
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		flights.add(new Flight(101, "New York", "10:10 AM", 100, 2000.00));
+		flights.add(new Flight(102, "Los Angeles", "12:00 PM", 50, 30000.00));
+		
+		int choice;
+		
+		do {
+			System.out.println("\nAirline Ticket Booking System");
+			System.out.println("1. Add Customer");
+			System.out.println("2. Book Ticket");
+			System.out.println("3. Display Flights");
+			System.out.println("4. Update Flight Schedule");
+			System.out.println("5. Cancel Flight");
+			System.out.println("6. Exit");
+			System.out.println("Enter your choice: ");
+			choice = scanner.nextInt();
+			
+			switch(choice) {
+			
+			case 1: 
+				System.out.println("Enter Cutomer Id: ");
+				int customerId = scanner.nextInt();
+				System.out.println();
+				System.out.println("Enter Customer Name: ");
+				String customerName = scanner.next();
+				System.out.println("Enter Conatact Number: ");
+				String contactNumber = scanner.next();
+				customers.add(new Customer(customerId, customerName, contactNumber));
+				
+			case 2: 
+				System.out.println("Enter Flight Id to book: ");
+				int flightId = scanner.nextInt();
+				System.out.println("Enter Customer Id: ");
+				customerId = scanner.nextInt();
+				System.out.println("Enter Number of Tickets: ");
+				int numTickets = scanner.nextInt();
+				
+				Flight selectedFlight = null;
+				for(Flight flight : flights) {
+					if(flight.flightId == flightId) {
+						selectedFlight = flight;
+						break;
+					}
+				}
+				
+				if(selectedFlight != null & selectedFlight.areSeatsAvailable(numTickets)) {
+					selectedFlight.bookSeats(numTickets);
+					bookings.add(new Booking(bookings.size()+1, flightId, customerId, numTickets));
+					System.out.println("Ticket booked Successfully");
+				} else {
+					System.out.println("Seats not available or flight not found.");
+				}
+				break;
+				
+			case 3:
+				for(Flight flight: flights) {
+					flight.displayFlightInfo();
+				}
+				break;
+				
+			case 4: 
+				System.out.println("Enter Flight Id to update: ");
+				flightId = scanner.nextInt();
+				System.out.println("Enter neew Destination: ");
+				String newDestination = scanner.nextLine();
+				System.out.println("Enter new Departure Time: ");
+				String newTime = scanner.nextLine();
+				
+				for(Flight flight: flights) {
+					if(flight.flightId == flightId) {
+						flight.updateFlight(newDestination, newTime);
+						System.out.println("Flight updated");
+					}
+				}
+				break;
+				
+			case 5: 
+				System.out.println("Enter Flight Id to cancel: ");
+				flightId = scanner.nextInt();
+				for(Flight flight : flights) {
+					if(flight.flightId == flightId) {
+						flight.cancleFlight();
+					}	
+				}
+				break;
+				
+			case 6: 
+				System.out.println("Exiting");
+				break;
+				
+			default: {
+				System.out.println("Invalid choice!");
+			}
+			
+		}
+			
+		}while(choice != 6);
+		
+		scanner.close();
+	}
+
+}

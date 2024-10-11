@@ -1,0 +1,45 @@
+package service;
+
+import entity.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Appointment {
+
+	ArrayList<AppointmentRecord> appointments = new ArrayList<AppointmentRecord>();
+	Hospital hospital;
+	final String logfile="D:\\LogFile.txt";
+	/**
+	 * @param hospital
+	 */
+	public Appointment(Hospital hospital) {
+		super();
+		this.hospital = hospital;
+	}
+	
+	public void logAppointmentDetails(String message) {
+		try {
+//			FileWriter f = new FileWriter("D:\\LogFile.txt");
+			BufferedWriter writer= new BufferedWriter(new FileWriter(logfile, true));
+			writer.write(message);
+			writer.newLine();
+		}
+		catch(IOException e){
+			//Todo auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Error: " +e.getMessage());
+		}
+	}
+	
+	public void scheduleAppointments(String patientId, String doctorId) {
+		
+		
+	}
+	
+	
+	
+}

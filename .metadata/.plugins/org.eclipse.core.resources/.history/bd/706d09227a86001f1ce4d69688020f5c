@@ -1,0 +1,8 @@
+package exceptions;
+
+//Custom Exception: DoctorNotFoundException
+class DoctorNotFoundException extends Exception {
+ public DoctorNotFoundException(String message) {
+     super(message);
+ }
+}
